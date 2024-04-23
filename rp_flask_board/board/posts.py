@@ -1,5 +1,6 @@
 from flask import (
     Blueprint,
+    flash,
     redirect,
     render_template,
     request,
@@ -21,7 +22,10 @@ def create():
                 (author, message),
             )
             db.commit()
+            flash(f"Thanks for posting, {author}!", category="success")
             return redirect(url_for("posts.posts"))
+        else:
+            flash("You need to post a message.", category="error")
 
     
     
